@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Search Form</title>
+</head>
+<body>
+<div class="container-fluid">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Evident BD Ltd</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            
+
+
+        </div>
+        <div class="d-flex float-right">
+                <div class="mr-5">
+                    <a class="btn btn-sm btn-danger" href="{% url 'logout' %}">Logout</a>
+                </div>
+                {% if not  request.user.is_authenticated  %}
+               <div class="ml-4">
+                    <a class="btn btn-sm btn-info" href="{% url 'login' %}">login</a>
+               </div>
+               {% endif %}
+            </div>
+    </nav>
+</div>
+
+<h2 class="text-center"> Hello {{request.user}}</h2>
+<div class="container mt-5">
+    {% for msg in messages %}
+    <div class="alert alert-success" role="alert">
+        {{msg}}
+    </div>
+    {% endfor %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="input_values">Input Values:</label>
+        <input type="text" id="input_values" class="form-control" name="input_values" > <br>
+        <label for="search_value">Search Value:</label>
+        <input type="text" name="search_value" class="form-control" id="search_value" name="search_value" ><br>
+        <p class="fw-bold">Result: {{ result }}</p>
+        <input type="submit" class="btn btn-success" value="submit">
+    </form>
+
+
+
+
+</div>
+
+</body>
+</html>
